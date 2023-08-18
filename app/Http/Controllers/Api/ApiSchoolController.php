@@ -25,30 +25,30 @@ class ApiSchoolController extends Controller
     public function index()
     {
         $data = $this->school->get();
-        return ResponseHelper::success(SchoolResource::collection($data), "Berhasil mengambil semua data sekolah");
+        return ResponseHelper::success(SchoolResource::collection($data), trans('messages.success_get_all'));
     }
     public function store(StoreRequest $request)
     {
         $data = $this->service->create($request);
         $this->school->store($data);
-        return ResponseHelper::success(null, "Berhasil menambah data sekolah");
+        return ResponseHelper::success(null, trans('messages.success_create'));
     }
     public function show(School $school_api)
     {
-        return ResponseHelper::success(SchoolResource::make($school_api), "Berhasil menampilkan sekolah");
+        return ResponseHelper::success(SchoolResource::make($school_api), trans('messages.success_show'));
     }
     public function update(UpdateRequest $request, School $school_api)
     {
         $data = $this->service->update($school_api, $request);
         $this->school->update($school_api->id, $data);
-        return ResponseHelper::success(null, "Berhasil mengedit data sekolah");
+        return ResponseHelper::success(null, trans('messages.success_update'));
     }
     public function destroy(School $school_api)
     {
         if (!$this->school->delete($school_api->id)) {
-            return ResponseHelper::error(null, "Data sekolah ini masih digunakan");
+            return ResponseHelper::error(null, trans('messages.error_restrict'));
         }
         $this->service->remove($school_api->image);
-        return ResponseHelper::success(null, "Berhasil menghapus data sekolah");
+        return ResponseHelper::success(null, trans('messages.success_delete'));
     }
 }

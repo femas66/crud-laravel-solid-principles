@@ -29,7 +29,7 @@ class ApiStudentController extends Controller
     public function index()
     {
 
-        return ResponseHelper::success(StudentResource::collection($this->student->get()), "Berhasil mengambil semua data");
+        return ResponseHelper::success(StudentResource::collection($this->student->get()), trans('messages.success_get_all'));
     }
 
     /**
@@ -39,9 +39,9 @@ class ApiStudentController extends Controller
     {
         $data = $this->service->store($request);
         if (!$this->student->store($data)) {
-            return ResponseHelper::error(null, "Foreign key tidak valid");
+            return ResponseHelper::error(null, trans('messages.error_restrict'));
         }
-        return ResponseHelper::success(null, "Berhasil menambah data");
+        return ResponseHelper::success(null, trans('messages.success_create'));
     }
 
     /**
@@ -49,7 +49,7 @@ class ApiStudentController extends Controller
      */
     public function show(Student $student_api)
     {
-        return ResponseHelper::success(StudentResource::make($student_api), "Berhasil mengambil data student");
+        return ResponseHelper::success(StudentResource::make($student_api), trans('messages.success_show'));
     }
 
     /**
@@ -59,9 +59,9 @@ class ApiStudentController extends Controller
     {
         $data = $this->service->update($request, $student_api);
         if (!$this->student->update($student_api->id, $data)) {
-            return ResponseHelper::error(null, "Foreign key tidak valid");
+            return ResponseHelper::error(null, trans('messages.error_restrict'));
         }
-        return ResponseHelper::success(null, "Berhasil menyimpan data student");
+        return ResponseHelper::success(null, trans('messages.success_update'));
     }
 
     /**
@@ -70,8 +70,8 @@ class ApiStudentController extends Controller
     public function destroy(Student $student_api)
     {
         if (!$this->student->delete($student_api->id)) {
-            return ResponseHelper::error(null, "Data masih digunakan");
+            return ResponseHelper::error(null, trans('messages.error_restrict'));
         }
-        return ResponseHelper::success(null, "Berhasil menghapus data student");
+        return ResponseHelper::success(null, trans('messages.success_delete'));
     }
 }

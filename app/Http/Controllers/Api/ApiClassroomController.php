@@ -28,7 +28,7 @@ class ApiClassroomController extends Controller
     public function index()
     {
         $data = $this->classroom->get();
-        return ResponseHelper::success(ClassroomResource::collection($data), "Berhasil mengambil semua data classroom");
+        return ResponseHelper::success(ClassroomResource::collection($data), trans('messages.success_get_all'));
     }
 
     /**
@@ -38,9 +38,9 @@ class ApiClassroomController extends Controller
     {
         $data = $this->service->create($request);
         if (!$this->classroom->store($data)) {
-            return ResponseHelper::error(null, "Foreign key tidak valid");
+            return ResponseHelper::error(null, trans('messages.error_foreign'));
         }
-        return ResponseHelper::success(null, "Berhasil menambah data classroom");
+        return ResponseHelper::success(null, trans('messages.success_create'));
     }
 
     /**
@@ -49,7 +49,7 @@ class ApiClassroomController extends Controller
     public function show(Classroom $classroom_api)
     {
         $classroom_api = $classroom_api->with('school')->first();
-        return ResponseHelper::success(ClassroomResource::make($classroom_api), 'Berhasil mengambil data classroom');
+        return ResponseHelper::success(ClassroomResource::make($classroom_api), trans('messages.success_show'));
     }
 
     /**
@@ -58,8 +58,8 @@ class ApiClassroomController extends Controller
     public function destroy(Classroom $classroom_api)
     {
         if (!$this->classroom->delete($classroom_api->id)) {
-            return ResponseHelper::error(null, "Data masih digunakan");
+            return ResponseHelper::error(null, trans('messages.error_restrict'));
         }
-        return ResponseHelper::success(null, "Berhasil menghapus data classroom");
+        return ResponseHelper::success(null, trans('messages.success_delete'));
     }
 }
