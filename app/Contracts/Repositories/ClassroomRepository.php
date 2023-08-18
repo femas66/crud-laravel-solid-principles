@@ -4,8 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Models\Classroom;
-    use Illuminate\Database\QueryException;
-use Mockery\Exception;
+use Illuminate\Database\QueryException;
 
 class ClassroomRepository extends BaseRepository implements ClassroomInterface
 {
