@@ -6,8 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>School</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    @if (session()->has('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+            })
+        </script>
+    @endif
+    @if (session()->has('success'))
+        <script>
+            Swal.fire(
+                'Good job!',
+                "{{ session('success') }}",
+                'success'
+            )
+        </script>
+    @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">CRUD :D</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
